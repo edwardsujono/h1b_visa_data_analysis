@@ -35,13 +35,7 @@ class DataCollector:
         self.df.drop("lat", 1, inplace=True)
 
         # drop all the empty data
-        self.df.drop(self.df[self.df.CASE_STATUS == ""].index, inplace=True)
-        self.df.drop(self.df[self.df.EMPLOYER_NAME == ""].index, inplace=True)
-        self.df.drop(self.df[self.df.SOC_NAME == ""].index, inplace=True)
-        self.df.drop(self.df[self.df.JOB_TITLE == ""].index, inplace=True)
-        self.df.drop(self.df[self.df.FULL_TIME_POSITION == ""].index, inplace=True)
-        self.df.drop(self.df[self.df.PREVAILING_WAGE < 0].index, inplace=True)
-        self.df.drop(self.df[self.df.WORKSITE == ""].index, inplace=True)
+        self.df.dropna()
 
         # merge with the soc code
         result = pd.merge(self.df,  self.df_soc[["Code", "Title"]], left_on="SOC_NAME", right_on="Title", how="inner")
